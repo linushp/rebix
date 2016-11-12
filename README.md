@@ -2,10 +2,6 @@ React Rebix
 ===========
 React的一个单项数据流框架。
 
-[![build status](https://img.shields.io/travis/reactjs/react-redux/master.svg?style=flat-square)](https://github.com/luanhaipeng/rebix) [![npm version](https://img.shields.io/npm/v/react-redux.svg?style=flat-square)](https://github.com/luanhaipeng/rebix)
-[![npm downloads](https://img.shields.io/npm/dm/react-redux.svg?style=flat-square)](https://github.com/luanhaipeng/rebix)
-
-
 ##优点
 
 内部实现依赖于Redux。但是简化了Redux的使用方法。
