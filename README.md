@@ -47,7 +47,8 @@ export default Rebix.createActions({
      */
     getUserInfo: function (params) {
 
-        //Action 中开源访问Store中的数据,但是只能调用get方法
+        //Action 中可以访问Store中的数据。但是只能调用get方法
+        //Store中的其他方法，不会对外暴露。
         var userInfo = UserStore.getUserInfo(123);
 
         return new Promise(function (resolve) {
@@ -101,6 +102,7 @@ export default Rebix.createStore({
         postList: []
     },
 
+    //类似Reflux。Action中的处理结束后，会把数据传递给Store
     'onGetUserList': function (state, action) {
         console.log(action.status);
         state = Object.assign({}, state);
