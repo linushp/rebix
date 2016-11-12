@@ -8,7 +8,17 @@ Performant and flexible.
 [![npm downloads](https://img.shields.io/npm/dm/react-redux.svg?style=flat-square)](https://github.com/luanhaipeng/rebix)
 
 
-## Installation
+##优点
+
+内部实现依赖于redux,但是简化了redux的使用方法
+
+1、action层只需要返回action方法的处理结果，无需action去dispatch处理的结果。
+2、store层，无需写大量的switch判断，而是采用reflux的风格，直接使用onXXXX来响应Action的处理。
+3、view层无需自己去依赖action和store层，而是直接采用简单的配置，就能自动将action和store中的数据绑定到组件的props中。
+4、view层中调用的action方法如果是异步方法会将返回值中的promise对象透传到view层。
+5、action层和view层，都可以直接访问store中的Get方法。但是view层和action层，都无法访问store中的非get方法。这样既能保证调用的灵活性，又能保证数据流的单向流动。
+
+## 安装
 
 React Rebix requires **React 0.14 or later.**
 
@@ -29,7 +39,7 @@ import Rebix from 'react-rebix';
 ```
 
 
-## Example
+## 示例
 
 https://github.com/luanhaipeng/rebix/tree/master/example/example
 
@@ -47,10 +57,10 @@ export default Rebix.createActions({
      */
     getUserInfo: function (params) {
 
-        //Action 中可以访问Store中的数据。但是只能调用get方法
-        //Store中的其他方法，不会对外暴露。
+        //Action 中可以访问Store中的数据。但是只能调用get方法。
+        //Store 中的其他方法，不会对外暴露，这样方便了数据的访问，同时又保证了数据的单向流动。
         var userInfo = UserStore.getUserInfo(123);
-
+    
         return new Promise(function (resolve) {
             setTimeout(function () {
                 //store层使用action.promise字段接受返回值
@@ -91,6 +101,14 @@ export default Rebix.createActions({
 
 ###Store
 
+Store中的数据存储，强烈建议使用immutable，这里为了演示方便，通过Object.assign({}, state)创建了一个新对象。
+
+说明：
+1、为了保证数据的单向流动，通过CreateStore创建的onXXXX函数,view层和action层根本调用不到。
+2、为了方便action和view层使用数据，通过CreateStore创建的getXXXX函数,view层和action层都可以调用到。
+3、一般来说action文件和store文件是一一对应的，但是有时候一个action的处理结果需要几个store层各自处理。
+   这里提供了加井号前缀的方式实现。比如：post#onGetPostList（在UserStore中响应PostAction的结果。）
+
 ```
 import Rebix from 'react-rebix';
 
@@ -103,6 +121,7 @@ export default Rebix.createStore({
     },
 
     //类似Reflux。Action中的处理结束后，会把数据传递给Store
+    //这里处理：action中方法 getUserList 的返回值。
     'onGetUserList': function (state, action) {
         console.log(action.status);
         state = Object.assign({}, state);
@@ -112,13 +131,14 @@ export default Rebix.createStore({
     },
 
 
+    //处理action中beginEditUserInfo的行为。
     'onBeginEditUserInfo': function (state) {
         state = Object.assign({}, state);
         state.isEditing = true;
         return state;
     },
 
-
+    //处理action中onEndEditUserInfo的行为。
     'onEndEditUserInfo': function (state) {
         state = Object.assign({}, state);
         state.isEditing = false;
@@ -127,9 +147,7 @@ export default Rebix.createStore({
 
 
     /**
-     * 通过CreateStore创建的on函数
-     * View层根本调用不到.
-     * 这样就保证了单项数据流
+     * 为了响应其它Action方法中的处理，要加#前缀
      */
     'post#onGetPostList': function (state, action) {
         console.log(action.status);
@@ -163,6 +181,15 @@ export default Rebix.createStore({
 
 ###Config
 
+通过Config，将action、store等资源集中起来。这样的目的是为了在view层，无需再引入大量的action、store的js文件。
+
+说明：
+1、 createConfigure中只有三个配置项。
+2、 initialState 是用来做服务端初次数据渲染用的。
+3、 actions 所有action的集合。
+4、 stores所有stores的结合。
+5、 actions和stores中配置的key值基本保证是一一对应的。如下：user和post
+
 ```
 import Rebix from 'react-rebix';
 import UserActions from '../actions/UserActions';
@@ -190,6 +217,12 @@ export default Rebix.createConfigure({
 
 
 ###View
+
+View层通过Rebix.createComponent将action和store自动绑定到组建的props中。
+store发生了变化，会自动update，因此强烈建议重写shouldComponentUpdate来避免重复渲染。这里跟redux是一样的。
+
+
+
 ```
 import React, {PropTypes} from 'react';
 import createRebixComponent from '../config/createRebixComponent';
@@ -253,7 +286,7 @@ class Hello extends React.Component {
 export default Rebix.createComponent(RebixConfigure, Hello, {
 
     actions: {
-        getUserList: 'user.getUserList',
+        getUserList: 'user.getUserList',  //请参考config文件中的配置。
         getPostList: 'post.getPostList',
         beginEditUserInfo: 'user.beginEditUserInfo'
     },
