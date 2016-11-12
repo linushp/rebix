@@ -15,6 +15,8 @@ React的一个单项数据流框架。
 3. view层无需自己去依赖action和store层，而是直接采用简单的配置，就能自动将action和store中的数据绑定到组件的props中。
 4. view层中调用的action方法如果是异步方法会将返回值中的promise对象透传到view层。
 5. action层和view层，都可以直接访问store中的Get方法。但是view层和action层，都无法访问store中的非get方法。这样既能保证调用的灵活性，又能保证数据流的单向流动。
+6. 跟其他框架相比，用户省去了大量自己手动书写的对数据的pub/sub的代码。
+
 
 ## 安装
 
@@ -42,6 +44,7 @@ https://github.com/luanhaipeng/rebix/tree/master/example/example
 Action中可访问Store中的getXXX方法，其他方法不能访问。
 
 支持三种Action
+
 1. 异步 Action， 一定要返回一个Promise对象
 2. 普通 Action，直接返回处理结果的js对象。
 3. 空Action, 不需要具体的实现，具体操作在Store中完成.
@@ -105,6 +108,7 @@ export default Rebix.createActions({
 Store中的数据存储，强烈建议使用immutable，这里为了演示方便，通过Object.assign({}, state)创建了一个新对象。
 
 说明：
+
 1. 为了保证数据的单向流动，通过CreateStore创建的onXXXX函数,view层和action层根本调用不到。
 2. 为了方便action和view层使用数据，通过CreateStore创建的getXXXX函数,view层和action层都可以调用到。
 3. 一般来说action文件和store文件是一一对应的，但是有时候一个action的处理结果需要几个store层各自处理。这里提供了加井号前缀的方式实现。比如：post#onGetPostList（在UserStore中响应PostAction的结果。）
@@ -184,6 +188,7 @@ export default Rebix.createStore({
 通过Config，将action、store等资源集中起来。这样的目的是为了在view层，无需再引入大量的action、store的js文件。
 
 说明：
+
 1. createConfigure中只有三个配置项。
 2. initialState 是用来做服务端初次数据渲染用的。
 3. actions 所有action的集合。
@@ -218,9 +223,11 @@ export default Rebix.createConfigure({
 
 ###View
 
-Action中可访问Store中的getXXX方法，其他方法不能访问。
-View层通过Rebix.createComponent将action和store自动绑定到组建的props中。
-Store发生了变化，会自动update，因此强烈建议重写shouldComponentUpdate来避免重复渲染。这里跟redux是一样的。
+注意：
+
+1. Action中可访问Store中的getXXX方法，其他方法不能访问。
+2. View层通过Rebix.createComponent将action和store自动绑定到组建的props中。
+3. Store发生了变化，会自动update，因此强烈建议重写shouldComponentUpdate来避免重复渲染。这里跟redux是一样的。
 
 
 
@@ -300,13 +307,15 @@ export default Rebix.createComponent(RebixConfigure, Hello, {
 });
 ```
 
-## How Does It Work?
+## 原理
 
-Like Redux , only one Store . pub/sub
+内部实现还是使用Redux，只有一个唯一的Store，通过connect自动完成对store数据变化的pub/sub机制。
 
 ## License
 
 MIT
 
-##Contact Me
-Email: master@ubibi.cn
+## 联系我
+
+1. Email： master@ubibi.cn
+2. QQ群： 464625365
