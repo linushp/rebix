@@ -1,0 +1,5 @@
+# Created by .ignore support plugin (hsz.mobi)
+.idea/modules.xml
+.idea/rebix.iml
+.idea/workspace.xml
+node_modules/
