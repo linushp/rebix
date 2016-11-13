@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 var webpack = require('webpack');
 var env = process.env.NODE_ENV;
@@ -37,7 +37,7 @@ var config = {
             'process.env.NODE_ENV': JSON.stringify(env)
         })
     ]
-}
+};
 
 if (env === 'production') {
     config.plugins.push(
