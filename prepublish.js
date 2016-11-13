@@ -17,8 +17,8 @@ glob('./@(lib|dist)/**/*.js', function (err, files) {
                 if (err) {
                     throw err
                 }
-
-                console.log('es3ified ' + file) // eslint-disable-line no-console
+                //eslint-disable-line no-console
+                console.log('es3ified ' + file)
             })
         })
     })
