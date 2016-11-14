@@ -311,7 +311,3 @@ export default Rebix.createComponent(RebixConfigure, Hello, {
 
 MIT
 
-## 联系我
-
-1. Email： master@ubibi.cn
-2. QQ群： 464625365
