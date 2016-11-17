@@ -3,13 +3,15 @@ import createComponent from './createComponent';
 import createStore from './createStore';
 import createConfigure from './createConfigure';
 import Provider from './component/Provider';
+import PureRenderComponent from './component/PureRenderComponent';
 
 var Reubibi = {
     createActions: createActions,
     createComponent: createComponent,
     createStore: createStore,
     createConfigure: createConfigure,
-    Provider: Provider
+    Provider: Provider,
+    PureRenderComponent:PureRenderComponent
 };
 
 
