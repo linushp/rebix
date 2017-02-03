@@ -7,6 +7,9 @@ export function isType(x, type) {
 export function isFunction(x) {
     return isType(x, 'Function');
 }
+export function isString(x) {
+    return isType(x, 'String');
+}
 
 
 export function toArray(aaa) {

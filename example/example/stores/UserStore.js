@@ -36,7 +36,7 @@ export default Rebix.createStore({
      * View层根本调用不到.
      * 这样就保证了单项数据流
      */
-    'post#onGetPostList': function (state, action) {
+    'post#onGetPostList': function (state, {status,payload}) {
         console.log(action.status);
         if (action.status === 'success') {
             state = Object.assign({}, state);

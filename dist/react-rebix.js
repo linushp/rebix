@@ -7,7 +7,7 @@
 		exports["ReactRebix"] = factory(require("react"));
 	else
 		root["ReactRebix"] = factory(root["React"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_2__) {
+})(this, function(__WEBPACK_EXTERNAL_MODULE_3__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -115,24 +115,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 2 */
 /***/ function(module, exports) {
 
-	module.exports = __WEBPACK_EXTERNAL_MODULE_2__;
-
-/***/ },
-/* 3 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports["default"] = isPromise;
-	function isPromise(p) {
-	    return p && typeof p.then === 'function' && typeof p["catch"] === 'function';
-	}
-
-/***/ },
-/* 4 */
-/***/ function(module, exports) {
-
 	'use strict';
 
 	exports.__esModule = true;
@@ -159,126 +141,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
+/* 3 */
+/***/ function(module, exports) {
 
-	var baseGetTag = __webpack_require__(24),
-	    getPrototype = __webpack_require__(26),
-	    isObjectLike = __webpack_require__(31);
-
-	/** `Object#toString` result references. */
-	var objectTag = '[object Object]';
-
-	/** Used for built-in method references. */
-	var funcProto = Function.prototype,
-	    objectProto = Object.prototype;
-
-	/** Used to resolve the decompiled source of functions. */
-	var funcToString = funcProto.toString;
-
-	/** Used to check objects for own properties. */
-	var hasOwnProperty = objectProto.hasOwnProperty;
-
-	/** Used to infer the `Object` constructor. */
-	var objectCtorString = funcToString.call(Object);
-
-	/**
-	 * Checks if `value` is a plain object, that is, an object created by the
-	 * `Object` constructor or one with a `[[Prototype]]` of `null`.
-	 *
-	 * @static
-	 * @memberOf _
-	 * @since 0.8.0
-	 * @category Lang
-	 * @param {*} value The value to check.
-	 * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
-	 * @example
-	 *
-	 * function Foo() {
-	 *   this.a = 1;
-	 * }
-	 *
-	 * _.isPlainObject(new Foo);
-	 * // => false
-	 *
-	 * _.isPlainObject([1, 2, 3]);
-	 * // => false
-	 *
-	 * _.isPlainObject({ 'x': 0, 'y': 0 });
-	 * // => true
-	 *
-	 * _.isPlainObject(Object.create(null));
-	 * // => true
-	 */
-	function isPlainObject(value) {
-	  if (!isObjectLike(value) || baseGetTag(value) != objectTag) {
-	    return false;
-	  }
-	  var proto = getPrototype(value);
-	  if (proto === null) {
-	    return true;
-	  }
-	  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
-	  return typeof Ctor == 'function' && Ctor instanceof Ctor &&
-	    funcToString.call(Ctor) == objectCtorString;
-	}
-
-	module.exports = isPlainObject;
-
+	module.exports = __WEBPACK_EXTERNAL_MODULE_3__;
 
 /***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	exports.__esModule = true;
-	exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = undefined;
-
-	var _createStore = __webpack_require__(12);
-
-	var _createStore2 = _interopRequireDefault(_createStore);
-
-	var _combineReducers = __webpack_require__(34);
-
-	var _combineReducers2 = _interopRequireDefault(_combineReducers);
-
-	var _bindActionCreators = __webpack_require__(33);
-
-	var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
-
-	var _applyMiddleware = __webpack_require__(32);
-
-	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
-
-	var _compose = __webpack_require__(11);
-
-	var _compose2 = _interopRequireDefault(_compose);
-
-	var _warning = __webpack_require__(13);
-
-	var _warning2 = _interopRequireDefault(_warning);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-	/*
-	* This is a dummy function to check if the function name has been altered by minification.
-	* If the function has been minified and NODE_ENV !== 'production', warn the user.
-	*/
-	function isCrushed() {}
-
-	if (("development") !== 'production' && typeof isCrushed.name === 'string' && isCrushed.name !== 'isCrushed') {
-	  (0, _warning2['default'])('You are currently using minified code outside of NODE_ENV === \'production\'. ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or DefinePlugin for webpack (http://stackoverflow.com/questions/30030031) ' + 'to ensure you have the correct code for your production build.');
-	}
-
-	exports.createStore = _createStore2['default'];
-	exports.combineReducers = _combineReducers2['default'];
-	exports.bindActionCreators = _bindActionCreators2['default'];
-	exports.applyMiddleware = _applyMiddleware2['default'];
-	exports.compose = _compose2['default'];
-
-/***/ },
-/* 7 */
+/* 4 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -286,6 +155,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.__esModule = true;
 	exports.isType = isType;
 	exports.isFunction = isFunction;
+	exports.isString = isString;
 	exports.toArray = toArray;
 	exports.getValueByKey = getValueByKey;
 	exports.getValueInPath = getValueInPath;
@@ -297,6 +167,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	function isFunction(x) {
 	    return isType(x, 'Function');
+	}
+	function isString(x) {
+	    return isType(x, 'String');
 	}
 
 	function toArray(aaa) {
@@ -364,6 +237,137 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports["default"] = isPromise;
+	function isPromise(p) {
+	    return p && typeof p.then === 'function' && typeof p["catch"] === 'function';
+	}
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var baseGetTag = __webpack_require__(24),
+	    getPrototype = __webpack_require__(26),
+	    isObjectLike = __webpack_require__(31);
+
+	/** `Object#toString` result references. */
+	var objectTag = '[object Object]';
+
+	/** Used for built-in method references. */
+	var funcProto = Function.prototype,
+	    objectProto = Object.prototype;
+
+	/** Used to resolve the decompiled source of functions. */
+	var funcToString = funcProto.toString;
+
+	/** Used to check objects for own properties. */
+	var hasOwnProperty = objectProto.hasOwnProperty;
+
+	/** Used to infer the `Object` constructor. */
+	var objectCtorString = funcToString.call(Object);
+
+	/**
+	 * Checks if `value` is a plain object, that is, an object created by the
+	 * `Object` constructor or one with a `[[Prototype]]` of `null`.
+	 *
+	 * @static
+	 * @memberOf _
+	 * @since 0.8.0
+	 * @category Lang
+	 * @param {*} value The value to check.
+	 * @returns {boolean} Returns `true` if `value` is a plain object, else `false`.
+	 * @example
+	 *
+	 * function Foo() {
+	 *   this.a = 1;
+	 * }
+	 *
+	 * _.isPlainObject(new Foo);
+	 * // => false
+	 *
+	 * _.isPlainObject([1, 2, 3]);
+	 * // => false
+	 *
+	 * _.isPlainObject({ 'x': 0, 'y': 0 });
+	 * // => true
+	 *
+	 * _.isPlainObject(Object.create(null));
+	 * // => true
+	 */
+	function isPlainObject(value) {
+	  if (!isObjectLike(value) || baseGetTag(value) != objectTag) {
+	    return false;
+	  }
+	  var proto = getPrototype(value);
+	  if (proto === null) {
+	    return true;
+	  }
+	  var Ctor = hasOwnProperty.call(proto, 'constructor') && proto.constructor;
+	  return typeof Ctor == 'function' && Ctor instanceof Ctor &&
+	    funcToString.call(Ctor) == objectCtorString;
+	}
+
+	module.exports = isPlainObject;
+
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.compose = exports.applyMiddleware = exports.bindActionCreators = exports.combineReducers = exports.createStore = undefined;
+
+	var _createStore = __webpack_require__(12);
+
+	var _createStore2 = _interopRequireDefault(_createStore);
+
+	var _combineReducers = __webpack_require__(34);
+
+	var _combineReducers2 = _interopRequireDefault(_combineReducers);
+
+	var _bindActionCreators = __webpack_require__(33);
+
+	var _bindActionCreators2 = _interopRequireDefault(_bindActionCreators);
+
+	var _applyMiddleware = __webpack_require__(32);
+
+	var _applyMiddleware2 = _interopRequireDefault(_applyMiddleware);
+
+	var _compose = __webpack_require__(11);
+
+	var _compose2 = _interopRequireDefault(_compose);
+
+	var _warning = __webpack_require__(13);
+
+	var _warning2 = _interopRequireDefault(_warning);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+	/*
+	* This is a dummy function to check if the function name has been altered by minification.
+	* If the function has been minified and NODE_ENV !== 'production', warn the user.
+	*/
+	function isCrushed() {}
+
+	if (("development") !== 'production' && typeof isCrushed.name === 'string' && isCrushed.name !== 'isCrushed') {
+	  (0, _warning2['default'])('You are currently using minified code outside of NODE_ENV === \'production\'. ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or DefinePlugin for webpack (http://stackoverflow.com/questions/30030031) ' + 'to ensure you have the correct code for your production build.');
+	}
+
+	exports.createStore = _createStore2['default'];
+	exports.combineReducers = _combineReducers2['default'];
+	exports.bindActionCreators = _bindActionCreators2['default'];
+	exports.applyMiddleware = _applyMiddleware2['default'];
+	exports.compose = _compose2['default'];
+
+/***/ },
 /* 8 */
 /***/ function(module, exports) {
 
@@ -402,7 +406,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.__esModule = true;
 
-	var _react = __webpack_require__(2);
+	var _react = __webpack_require__(3);
 
 	exports["default"] = _react.PropTypes.shape({
 	    subscribe: _react.PropTypes.func.isRequired,
@@ -475,7 +479,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.ActionTypes = undefined;
 	exports['default'] = createStore;
 
-	var _isPlainObject = __webpack_require__(5);
+	var _isPlainObject = __webpack_require__(6);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
@@ -770,7 +774,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.__esModule = true;
 	exports["default"] = undefined;
 
-	var _react = __webpack_require__(2);
+	var _react = __webpack_require__(3);
 
 	var _storeShape = __webpack_require__(9);
 
@@ -830,7 +834,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports["default"] = undefined;
 	exports.shallowCompare = shallowCompare;
 
-	var _react = __webpack_require__(2);
+	var _react = __webpack_require__(3);
 
 	var _react2 = _interopRequireDefault(_react);
 
@@ -887,7 +891,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports["default"] = connect;
 
-	var _react = __webpack_require__(2);
+	var _react = __webpack_require__(3);
 
 	var _storeShape = __webpack_require__(9);
 
@@ -901,11 +905,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _wrapActionCreators2 = _interopRequireDefault(_wrapActionCreators);
 
-	var _warning = __webpack_require__(4);
+	var _warning = __webpack_require__(2);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
-	var _isPlainObject = __webpack_require__(5);
+	var _isPlainObject = __webpack_require__(6);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
@@ -1285,7 +1289,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _objectForEach2 = _interopRequireDefault(_objectForEach);
 
-	var _isPromise = __webpack_require__(3);
+	var _isPromise = __webpack_require__(5);
 
 	var _isPromise2 = _interopRequireDefault(_isPromise);
 
@@ -1351,27 +1355,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.__esModule = true;
 	exports["default"] = createComponent;
 
-	var _redux = __webpack_require__(6);
+	var _redux = __webpack_require__(7);
 
 	var _connect = __webpack_require__(16);
 
 	var _connect2 = _interopRequireDefault(_connect);
 
-	var _functions = __webpack_require__(7);
+	var _functions = __webpack_require__(4);
 
 	var _objectForEach = __webpack_require__(1);
 
 	var _objectForEach2 = _interopRequireDefault(_objectForEach);
 
-	var _warning = __webpack_require__(4);
+	var _warning = __webpack_require__(2);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
-	var _isPromise = __webpack_require__(3);
+	var _isPromise = __webpack_require__(5);
 
 	var _isPromise2 = _interopRequireDefault(_isPromise);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+	var _undefined = undefined;
 
 	function createConfiguredActionWrapper(actionWrapper, path) {
 
@@ -1400,7 +1406,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    (0, _objectForEach2["default"])(actionsConfig, function (key, path) {
 	        var actionWrapper = (0, _functions.getValueInPath)(allActions, path || '');
-	        if (actionWrapper === undefined) {
+	        if (actionWrapper === _undefined) {
 	            (0, _warning2["default"])('[ERROR]cannot get Object by key : ' + key + ' and path: ' + path + ' ');
 	        } else {
 	            actionsResult[key] = createConfiguredActionWrapper(actionWrapper, path);
@@ -1440,10 +1446,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    var propsConfig = componentConfig.props || {};
 
-	    (0, _objectForEach2["default"])(propsConfig, function (key, path) {
-	        result[key] = (0, _functions.getValueInPath)(state, path || '');
-	        if (result[key] === undefined) {
-	            (0, _warning2["default"])('[ERROR]cannot get Object by key : ' + key + ' and path: ' + path + ' ');
+	    (0, _objectForEach2["default"])(propsConfig, function (key, pathOrFunc) {
+
+	        if ((0, _functions.isFunction)(pathOrFunc)) {
+	            result[key] = pathOrFunc(state);
+	        } else if ((0, _functions.isString)(pathOrFunc)) {
+	            result[key] = (0, _functions.getValueInPath)(state, pathOrFunc || '');
+	        }
+
+	        if (result[key] === _undefined) {
+	            (0, _warning2["default"])('[ERROR]cannot get Object by key : ' + key + ' and path: ' + pathOrFunc + ' ');
 	        }
 	    });
 
@@ -1495,21 +1507,25 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.__esModule = true;
 	exports["default"] = createConfigure;
 
-	var _redux = __webpack_require__(6);
+	var _redux = __webpack_require__(7);
 
 	var _promiseMiddleware = __webpack_require__(21);
 
 	var _promiseMiddleware2 = _interopRequireDefault(_promiseMiddleware);
 
+	var _functions = __webpack_require__(4);
+
 	var _objectForEach = __webpack_require__(1);
 
 	var _objectForEach2 = _interopRequireDefault(_objectForEach);
 
+	var _warning = __webpack_require__(2);
+
+	var _warning2 = _interopRequireDefault(_warning);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var createStoreWithMiddleware = (0, _redux.applyMiddleware)(_promiseMiddleware2["default"])(_redux.createStore);
 
 	var getCombineReducers = function getCombineReducers(config) {
 	    /**
@@ -1556,6 +1572,40 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	}
 
+	function replacePromiseMiddleware(middlewareArray) {
+
+	    var middlewareArray1 = [];
+	    var isHasPromiseMiddleware = false;
+	    for (var i = 0; i < middlewareArray.length; i++) {
+	        var m = middlewareArray[i];
+	        if (m === 'promiseMiddleware') {
+	            middlewareArray1.push(_promiseMiddleware2["default"]);
+	            isHasPromiseMiddleware = true;
+	        } else if ((0, _functions.isFunction)(m)) {
+	            middlewareArray1.push(m);
+	        } else {
+	            throw new Error(m + ' is not a middleware');
+	        }
+	    }
+
+	    if (!isHasPromiseMiddleware) {
+	        (0, _warning2["default"])('Must has a promiseMiddleware,please check createConfigure');
+	    }
+
+	    return middlewareArray1;
+	}
+
+	function toCreateStoreWithMiddleware(middlewareArray) {
+	    var func = null;
+	    if (middlewareArray && middlewareArray.length > 0) {
+	        middlewareArray = replacePromiseMiddleware(middlewareArray);
+	        func = _redux.applyMiddleware.apply({}, middlewareArray);
+	    } else {
+	        func = (0, _redux.applyMiddleware)(_promiseMiddleware2["default"]);
+	    }
+	    return func(_redux.createStore);
+	}
+
 	var ReubibiConfig = function () {
 
 	    /**
@@ -1576,8 +1626,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        setStoreGroupName(config);
 	        this.config = config;
 	        var initialState = config.initialState;
-	        var reducer = getCombineReducers(this.config);
-
+	        var middleware = config.middleware;
+	        var reducer = getCombineReducers(config);
+	        var createStoreWithMiddleware = toCreateStoreWithMiddleware(middleware);
 	        if (initialState) {
 	            //唯一的一个store
 	            this.store = createStoreWithMiddleware(reducer, initialState);
@@ -1615,11 +1666,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _objectForEach2 = _interopRequireDefault(_objectForEach);
 
-	var _warning = __webpack_require__(4);
+	var _warning = __webpack_require__(2);
 
 	var _warning2 = _interopRequireDefault(_warning);
 
-	var _functions = __webpack_require__(7);
+	var _functions = __webpack_require__(4);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -1755,7 +1806,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.__esModule = true;
 	exports["default"] = promiseMiddleware;
 
-	var _isPromise = __webpack_require__(3);
+	var _isPromise = __webpack_require__(5);
 
 	var _isPromise2 = _interopRequireDefault(_isPromise);
 
@@ -1875,7 +1926,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.__esModule = true;
 	exports["default"] = wrapActionCreators;
 
-	var _redux = __webpack_require__(6);
+	var _redux = __webpack_require__(7);
 
 	function wrapActionCreators(actionCreators) {
 	    return function (dispatch) {
@@ -1909,8 +1960,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  if (value == null) {
 	    return value === undefined ? undefinedTag : nullTag;
 	  }
-	  value = Object(value);
-	  return (symToStringTag && symToStringTag in value)
+	  return (symToStringTag && symToStringTag in Object(value))
 	    ? getRawTag(value)
 	    : objectToString(value);
 	}
@@ -2222,7 +2272,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _createStore = __webpack_require__(12);
 
-	var _isPlainObject = __webpack_require__(5);
+	var _isPlainObject = __webpack_require__(6);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 

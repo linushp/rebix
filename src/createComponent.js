@@ -1,9 +1,10 @@
 import {bindActionCreators} from 'redux';
 import connect from './component/connect';
-import {getValueInPath,toArray} from './utils/functions';
+import {getValueInPath,toArray,isString,isFunction} from './utils/functions';
 import objectForEach from './utils/objectForEach';
 import warning from './utils/warning';
 import isPromise from './utils/isPromise';
+const _undefined = undefined;
 
 function createConfiguredActionWrapper(actionWrapper, path) {
 
@@ -31,10 +32,9 @@ function getActionsFromConfig(reubibiConfigure, componentConfig) {
     var actionsConfig = componentConfig.actions || {};
     var allActions = reubibiConfigure.getActions();
 
-
     objectForEach(actionsConfig, function (key, path) {
         var actionWrapper = getValueInPath(allActions, path || '');
-        if (actionWrapper === undefined) {
+        if (actionWrapper === _undefined) {
             warning(`[ERROR]cannot get Object by key : ${key} and path: ${path} `);
         } else {
             actionsResult[key] = createConfiguredActionWrapper(actionWrapper, path);
@@ -78,11 +78,18 @@ function getStateByConfig(state, componentConfig) {
 
     var propsConfig = componentConfig.props || {};
 
-    objectForEach(propsConfig, function (key, path) {
-        result[key] = getValueInPath(state, path || '');
-        if (result[key] === undefined) {
-            warning(`[ERROR]cannot get Object by key : ${key} and path: ${path} `);
+    objectForEach(propsConfig, function (key, pathOrFunc) {
+
+        if(isFunction(pathOrFunc)){
+            result[key] = pathOrFunc(state);
+        }else if(isString(pathOrFunc)){
+            result[key] = getValueInPath(state, pathOrFunc || '');
         }
+
+        if (result[key] === _undefined) {
+            warning(`[ERROR]cannot get Object by key : ${key} and path: ${pathOrFunc} `);
+        }
+
     });
 
     return result;

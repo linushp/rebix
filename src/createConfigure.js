@@ -1,11 +1,8 @@
 import {createStore, applyMiddleware, combineReducers} from 'redux';
 import promiseMiddleware from './middleware/promiseMiddleware';
+import {isFunction} from './utils/functions'
 import objectForEach from './utils/objectForEach';
-
-const createStoreWithMiddleware = applyMiddleware(
-    promiseMiddleware
-)(createStore);
-
+import warning from './utils/warning';
 
 const getCombineReducers = function (config) {
     /**
@@ -55,6 +52,42 @@ function setStoreGroupName(config) {
 }
 
 
+function replacePromiseMiddleware(middlewareArray){
+
+    var middlewareArray1 = [];
+    var isHasPromiseMiddleware = false;
+    for (var i = 0; i < middlewareArray.length; i++) {
+        var m = middlewareArray[i];
+        if (m === 'promiseMiddleware') {
+            middlewareArray1.push(promiseMiddleware);
+            isHasPromiseMiddleware = true;
+        } else if (isFunction(m)) {
+            middlewareArray1.push(m);
+        } else {
+            throw new Error(`${m} is not a middleware`);
+        }
+    }
+
+    if (!isHasPromiseMiddleware) {
+        warning(`Must has a promiseMiddleware,please check createConfigure`);
+    }
+
+    return middlewareArray1;
+}
+
+
+function toCreateStoreWithMiddleware(middlewareArray) {
+    var func = null;
+    if (middlewareArray && middlewareArray.length > 0) {
+        middlewareArray = replacePromiseMiddleware(middlewareArray);
+        func = applyMiddleware.apply({},middlewareArray);
+    } else {
+        func = applyMiddleware(promiseMiddleware);
+    }
+    return func(createStore);
+}
+
+
 class ReubibiConfig {
 
     /**
@@ -73,8 +106,9 @@ class ReubibiConfig {
         setStoreGroupName(config);
         this.config = config;
         var initialState = config.initialState;
-        var reducer = getCombineReducers(this.config);
-
+        var middleware = config.middleware;
+        var reducer = getCombineReducers(config);
+        var createStoreWithMiddleware = toCreateStoreWithMiddleware(middleware);
         if(initialState){
             //唯一的一个store
             this.store = createStoreWithMiddleware(reducer, initialState);

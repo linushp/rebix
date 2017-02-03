@@ -1,7 +1,6 @@
-import Rebix from 'react-rebix';
+import {createActions} from 'react-rebix';
 
-export default Rebix.createActions({
-
+export default createActions({
 
     /**
      * 异步 Action

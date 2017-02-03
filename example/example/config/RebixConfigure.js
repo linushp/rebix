@@ -16,6 +16,10 @@ export default Rebix.createConfigure({
     stores: {
         user: UserStore,
         post: PostStore
-    }
+    },
+
+    middleware: [
+        'promiseMiddleware'
+    ]
 
 });
